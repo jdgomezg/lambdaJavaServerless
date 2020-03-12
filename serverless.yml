@@ -1,0 +1,22 @@
+service: lambdajavaserverless
+
+provider:
+  name: aws
+  runtime: java11
+  stage: 'dev'
+  region: 'us-east-1'
+  profile: 'developer'
+  environment:
+    PATH_RESOURCES: /v1/pragma/test
+
+package:
+  artifact: build/distributions/lambdaJavaServerless.zip
+
+functions:
+  hello:
+    handler: com.serverless.Handler
+    events:
+      - http:
+          path: ${self:provider.environment.PATH_RESOURCES}/get-method
+          method: get
+    memorySize: 128
