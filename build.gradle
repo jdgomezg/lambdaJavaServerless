@@ -13,12 +13,15 @@ repositories {
 
 dependencies {
     compile(
+            'com.amazonaws:aws-java-sdk-s3:1.11.747',
             'com.amazonaws:aws-lambda-java-core:1.2.0',
             'com.amazonaws:aws-lambda-java-log4j:1.0.0',
             'com.fasterxml.jackson.core:jackson-core:2.9.10',
             'com.fasterxml.jackson.core:jackson-databind:2.9.10',
             'com.fasterxml.jackson.core:jackson-annotations:2.9.10',
-            'org.projectlombok:lombok:1.18.12'
+            'org.projectlombok:lombok:1.18.12',
+            'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3',
+            'org.glassfish.jaxb:jaxb-runtime:2.3.2'
     )
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
 }

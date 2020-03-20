@@ -1,13 +1,30 @@
 service: lambdajavaserverless
 
+custom:
+  prune:
+    automatic: true
+    number: 3
+
 provider:
   name: aws
   runtime: java11
   stage: 'dev'
   region: 'us-east-1'
   profile: 'developer'
+  timeout: 90
   environment:
     PATH_RESOURCES: /v1/pragma/test
+    AWS_BUCKET_NAME: 'iso-data'
+    AWS_FILE_NAME: 'pacs.008.001.07.'
+    BUCKET_ARN: 'arn:aws:s3:::iso-data'
+    NUMBER_CICLE: 100000
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - s3:PutObject
+      Resource:
+        - "${self:provider.environment.BUCKET_ARN}/*"
 
 package:
   artifact: build/distributions/lambdaJavaServerless.zip
@@ -19,4 +36,4 @@ functions:
       - http:
           path: ${self:provider.environment.PATH_RESOURCES}/get-method
           method: get
-    memorySize: 128
+    memorySize: 1024

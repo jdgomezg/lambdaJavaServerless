@@ -117,6 +117,15 @@
                       "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/lambdajavaserverless-dev*:*:*"
                     }
                   ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:PutObject"
+                  ],
+                  "Resource": [
+                    "arn:aws:s3:::iso-data/*"
+                  ]
                 }
               ]
             }
@@ -144,11 +153,11 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/lambdajavaserverless/dev/1584038129879-2020-03-12T18:35:29.879Z/build/distributions/lambdaJavaServerless.zip"
+          "S3Key": "serverless/lambdajavaserverless/dev/1584660842247-2020-03-19T23:34:02.247Z/build/distributions/lambdaJavaServerless.zip"
         },
         "FunctionName": "lambdajavaserverless-dev-hello",
         "Handler": "com.serverless.Handler",
-        "MemorySize": 128,
+        "MemorySize": 1024,
         "Role": {
           "Fn::GetAtt": [
             "IamRoleLambdaExecution",
@@ -156,10 +165,14 @@
           ]
         },
         "Runtime": "java11",
-        "Timeout": 6,
+        "Timeout": 90,
         "Environment": {
           "Variables": {
-            "PATH_RESOURCES": "/v1/pragma/test"
+            "PATH_RESOURCES": "/v1/pragma/test",
+            "AWS_BUCKET_NAME": "iso-data",
+            "AWS_FILE_NAME": "pacs.008.001.07.",
+            "BUCKET_ARN": "arn:aws:s3:::iso-data",
+            "NUMBER_CICLE": 100000
           }
         }
       },
@@ -168,14 +181,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "HelloLambdaVersionPW5yifOvtW3Y9dgOHHKio10LvmSuwRSg8GYZzaBvWw": {
+    "HelloLambdaVersionbf34hXHHHejFedgknkoxHnrlx35GMrYU5uXt1BX14OA": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "HelloLambdaFunction"
         },
-        "CodeSha256": "7T2o9I5UxFdx0xebu/iSxS/+8nNlLcUojKGHMs6A7xQ="
+        "CodeSha256": "p9i17hwollajwX/8rG10ITTD/PVSMhWrkzVv61jw5mg="
       }
     },
     "ApiGatewayRestApi": {
@@ -284,7 +297,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1584038128824": {
+    "ApiGatewayDeployment1584660841167": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -343,7 +356,7 @@
     "HelloLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "HelloLambdaVersionPW5yifOvtW3Y9dgOHHKio10LvmSuwRSg8GYZzaBvWw"
+        "Ref": "HelloLambdaVersionbf34hXHHHejFedgknkoxHnrlx35GMrYU5uXt1BX14OA"
       }
     },
     "ServiceEndpoint": {
