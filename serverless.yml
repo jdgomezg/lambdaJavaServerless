@@ -17,12 +17,13 @@ provider:
     AWS_BUCKET_NAME: 'iso-data'
     AWS_FILE_NAME: 'pacs.008.001.07.'
     BUCKET_ARN: 'arn:aws:s3:::iso-data'
-    NUMBER_CICLE: 100000
+    NUMBER_CICLE: 1
 
   iamRoleStatements:
     - Effect: "Allow"
       Action:
         - s3:PutObject
+        - s3:GetObject
       Resource:
         - "${self:provider.environment.BUCKET_ARN}/*"
 
@@ -30,10 +31,17 @@ package:
   artifact: build/distributions/lambdaJavaServerless.zip
 
 functions:
-  hello:
-    handler: com.serverless.Handler
+  upload:
+    handler: com.serverless.services.Handler
     events:
       - http:
-          path: ${self:provider.environment.PATH_RESOURCES}/get-method
+          path: ${self:provider.environment.PATH_RESOURCES}/upload
+          method: get
+    memorySize: 1024
+  download:
+    handler: com.serverless.services.Converter
+    events:
+      - http:
+          path: ${self:provider.environment.PATH_RESOURCES}/download
           method: get
     memorySize: 1024

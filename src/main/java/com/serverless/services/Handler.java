@@ -1,4 +1,4 @@
-package com.serverless;
+package com.serverless.services;
 
 import java.io.*;
 import java.util.*;
@@ -31,12 +31,12 @@ public class Handler implements RequestHandler<Map<String, Object>, Response> {
             LOG.info("llamado al XML ");
 
             ByteArrayOutputStream byteArrayOutputStream = generateXML.generarIso();
-            uploadData.uploadAmazon(byteArrayOutputStream);
+            uploadData.uploadAmazon(byteArrayOutputStream.toString());
 
             LOG.info("se ejecuto el XML");
             apiGatewayResponse = ApiGatewayResponse.builder()
                     .statusCode(200)
-                    .objectBody("Hello, the current time is " + new Date())
+                    .objectBody("Hello, the upload was success ")
                     .headers(headers)
                     .build();
             Long fin = System.currentTimeMillis();
@@ -47,7 +47,7 @@ public class Handler implements RequestHandler<Map<String, Object>, Response> {
             LOG.error("Error inesperado: ", e);
             apiGatewayResponse = ApiGatewayResponse.builder()
                     .statusCode(500)
-                    .objectBody("Fail, the current time is " + new Date())
+                    .objectBody("Fail, upload")
                     .headers(headers)
                     .build();
             return apiGatewayResponse.buildResponse();

@@ -118,11 +118,11 @@ public class GenerateXML {
             PersonIdentification13 personIdentification131 = new PersonIdentification13();
             GenericPersonIdentification1 genericPersonIdentification11 = new GenericPersonIdentification1();
             genericPersonIdentification11.setId("5009956234401");
-            personIdentification131.getOthr().add(genericPersonIdentification1);
+            personIdentification131.getOthr().add(genericPersonIdentification11);
             party34Choice1.setPrvtId(personIdentification13);
-            partyIdentification125.setId(party34Choice);
-            partyIdentification125.setCtryOfRes("EC");
-            creditTransferTransaction30.setCdtr(partyIdentification125);
+            partyIdentification1251.setId(party34Choice1);
+            partyIdentification1251.setCtryOfRes("EC");
+            creditTransferTransaction30.setCdtr(partyIdentification1251);
 
             CashAccount24 cashAccount241 = new CashAccount24();
             AccountIdentification4Choice accountIdentification4Choice1 = new AccountIdentification4Choice();
@@ -146,8 +146,9 @@ public class GenerateXML {
         // create JAXB context and instantiate marshaller
         JAXBContext context = JAXBContext.newInstance(Document.class);
         Marshaller m = context.createMarshaller();
-        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
+        //m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        //para que no tenga identacion
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
         JAXBElement<Document> jaxbElement = new ObjectFactory().createDocument(doc);
 
         ByteArrayOutputStream fileOutput = new ByteArrayOutputStream();

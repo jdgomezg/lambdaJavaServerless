@@ -13,9 +13,9 @@ public class UploadData {
     /**
      * metodo encargado de la carga de archivos a S3
      *
-     * @param fileOutput {@link ByteArrayOutputStream} archivo a cargar
+     * @param file {@link ByteArrayOutputStream} archivo a cargar
      */
-    public void uploadAmazon(ByteArrayOutputStream fileOutput) {
+    public void uploadAmazon(String file) {
         Regions clientRegion = Regions.US_EAST_1;
         String bucketName = System.getenv("AWS_BUCKET_NAME");
         String fileObjKeyName = System.getenv("AWS_FILE_NAME") + new Date().getTime();
@@ -24,7 +24,7 @@ public class UploadData {
                     .withRegion(clientRegion)
                     .build();
 
-            PutObjectResult result = s3Client.putObject(bucketName, fileObjKeyName, fileOutput.toString());
+            PutObjectResult result = s3Client.putObject(bucketName, fileObjKeyName, file);
         } catch (AmazonServiceException e) {
             System.err.println(e.getStackTrace());
         }
